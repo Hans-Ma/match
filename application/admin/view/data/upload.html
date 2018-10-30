@@ -1,0 +1,140 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="Bookmark" href="/favicon.ico" >
+    <link rel="Shortcut Icon" href="/favicon.ico" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="/lib/html5shiv.js"></script>
+    <script type="text/javascript" src="/lib/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="/lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="/static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="/static/h-ui.admin/css/style.css" />
+    <!--[if IE 6]>
+    <script type="text/javascript" src="/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <!--/meta 作为公共模版分离出去-->
+
+    <title>添加比赛数据</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 比赛数据批量上传</nav>
+<article class="page-container">
+    <form method="post" class="form form-horizontal" enctype="multipart/form-data" action="{:url('/admin/data/upload')}" id="form-member-add">
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-2"> 下载模板：</label>
+            <div class="col-xs-2 col-sm-2">
+                <a class="btn btn-success radius" href="/admin/data/download" id="download">下载</a>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-2"> 比赛名称：</label>
+            <div class="formControls col-xs-4 col-sm-4"> <span class="select-box">
+				<select class="select" name="mess_id">
+					<option>请选择</option>
+					{volist name="game" id="vo"}
+					    <option value="{$vo.id}">{$vo.game_name}</option>
+                    {/volist}
+				</select>
+				</span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-2"> 运动员：</label>
+            <div class="formControls col-xs-4 col-sm-4"> <span class="select-box">
+				<select class="select" name="user_id">
+					<option>请选择</option>
+					{volist name="arr" id="vo"}
+					    <option value="{$vo.id}">{$vo.user_name}</option>
+                    {/volist}
+				</select>
+				</span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-2">数据上传：</label>
+            <div class="formControls  col-xs-7 col-sm-8"> <span class="btn-upload form-group">
+				<input type="hidden" name="uploadfile" id="uploadfile">
+				<a href="javascript:void(0);" class="btn btn-success radius upload-btn"><i class="Hui-iconfont">&#xe642;</i> 上传</a>
+				<input type="file" multiple name="file" class="input-file">
+				</span> </div>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-7 col-sm-8 col-xs-offset-3 col-sm-offset-2">
+                <input class="btn btn-success radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                <input class="btn radius" type="reset" value="&nbsp;&nbsp;重置&nbsp;&nbsp;">
+            </div>
+        </div>
+    </form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+    $(function(){
+        //设置checkbox颜色
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-green',
+            radioClass: 'iradio-green',
+            increaseArea: '20%'
+        });
+
+        //设置必填字段
+        $("#form-member-add").validate({
+            rules:{
+                username:{
+                    required:true,
+                    minlength:2,
+                    maxlength:16
+                },
+                sex:{
+                    required:true,
+                },
+                state:{
+                    required:true,
+                },
+                age:{
+                    required:true,
+                },
+                bat:{
+                    required:true,
+                },
+                play:{
+                    required:true,
+                },
+                uploadfile:{
+                    required:true,
+                },
+            },
+            onkeyup:false,
+            focusCleanup:true,
+            success:"valid",
+            submitHandler:function(form) {
+                $(form).ajaxSubmit(options);
+                //var index = parent.layer.getFrameIndex(window.name);
+                //parent.$('.btn-refresh').click();
+                //parent.layer.close(index);
+            }
+        });
+    });
+
+</script>
+</body>
+</html>

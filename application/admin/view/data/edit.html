@@ -1,0 +1,204 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="Bookmark" href="/favicon.ico" >
+    <link rel="Shortcut Icon" href="/favicon.ico" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="/lib/html5shiv.js"></script>
+    <script type="text/javascript" src="/lib/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="/lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="/static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="/static/h-ui.admin/css/style.css" />
+    <!--[if IE 6]>
+    <script type="text/javascript" src="/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <!--/meta 作为公共模版分离出去-->
+
+    <title>添加比赛数据</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 添加比赛数据</nav>
+<article class="page-container">
+    <form method="post" class="form form-horizontal" enctype="multipart/form-data" action="edit" id="form-member-add">
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-2"> 比赛名称：</label>
+            <div class="formControls col-xs-4 col-sm-4"> <span class="select-box">
+				<select class="select" name="mess_id">
+					{volist name="game" id="vo"}
+					    <option value="{$vo.id}" {if($vo.id==$data.mess_id)}selected{/if}>{$vo.game_name}</option>
+                    {/volist}
+				</select>
+				</span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-2"> 运动员：</label>
+            <div class="formControls col-xs-4 col-sm-4"> <span class="select-box">
+				<select class="select" name="user_id">
+					<option>请选择</option>
+					{volist name="arr" id="vo"}
+					    <option value="{$vo.id}" {if($vo.id==$data.user_id)}selected{/if}>{$vo.user_name}</option>
+                    {/volist}
+				</select>
+				</span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-2"> 局数：</label>
+            <div class="formControls col-xs-4 col-sm-4"> <span class="select-box">
+				<select class="select" name="class">
+					<option>请选择</option>
+					{volist name="office" id="vo"}
+					    <option value="{$vo.id}" {if($vo.id==$data.class)}selected{/if}>{$vo.office_name}</option>
+                    {/volist}
+				</select>
+				</span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-2"> 总得：</label>
+            <div class="formControls  col-xs-2 col-sm-3">
+                <input type="text" class="input-text" value="{$data.score_first}" id="age" name="score_first">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-2"> 总失：</label>
+            <div class="formControls  col-xs-2 col-sm-3">
+                <input type="text" class="input-text" value="{$data.score_last}"  id="state" name="score_last">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-2"> 发接轮次：</label>
+            <div class="formControls  col-xs-7 col-sm-8 skin-minimal">
+                <div class="radio-box">
+                    <input name="send" type="radio" id="left" value="发" {if("发"==$data.send)}checked{/if}>
+                    <label for="left">发</label>
+                </div>
+                <div class="radio-box">
+                    <input name="send" type="radio" id="right" value="接" {if("接"==$data.send)}checked{/if}>
+                    <label for="right">接</label>
+                </div>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-2"> 拍数：</label>
+            <div class="formControls col-xs-4 col-sm-4"> <span class="select-box">
+				<select class="select" name="bat_number">
+                    <option value="接发球" {if("接发球"==$data.bat_number)}selected{/if}>接发球</option>
+                    <option value="发球" {if("发球"==$data.bat_number)}selected{/if}>发球</option>
+                    <option value="相持" {if("相持"==$data.bat_number)}selected{/if}>相持</option>
+                    <option value="第一板" {if("第一板"==$data.bat_number)}selected{/if}>第一板</option>
+                    <option value="第二板" {if("第二板"==$data.bat_number)}selected{/if}>第二板</option>
+                    <option value="第三板" {if("第三板"==$data.bat_number)}selected{/if}>第三板</option>
+                    <option value="第四板" {if("第四板"==$data.bat_number)}selected{/if}>第四板</option>
+                    <option value="第五板" {if("第五板"==$data.bat_number)}selected{/if}>第五板</option>
+                    <option value="第六板" {if("第六板"==$data.bat_number)}selected{/if}>第六板</option>
+				</select>
+				</span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-2"> 手段：</label>
+            <div class="formControls col-xs-4 col-sm-4"> <span class="select-box">
+				<select class="select" name="tool">
+                    <option value="正手" {if("正手"==$data.tool)}selected{/if}>正手</option>
+                    <option value="反手" {if("反手"==$data.tool)}selected{/if}>反手</option>
+                    <option value="发球" {if("发球"==$data.tool)}selected{/if}>发球</option>
+                    <option value="控制" {if("控制"==$data.tool)}selected{/if}>控制</option>
+                    <option value="侧身" {if("侧身"==$data.tool)}selected{/if}>侧身</option>
+
+				</select>
+				</span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-2"> 得失分：</label>
+            <div class="formControls col-xs-4 col-sm-4"> <span class="select-box">
+				<select class="select" name="get_lose">
+                    <option value="得" {if("得"==$data.get_lose)}checked{/if}>得</option>
+                    <option value="失" {if("失"==$data.get_lose)}checked{/if}>失</option>
+				</select>
+				</span>
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-7 col-sm-8 col-xs-offset-3 col-sm-offset-2">
+                <input class="btn btn-success radius" type="submit" value="&nbsp;提交修改&nbsp;">
+            </div>
+        </div>
+    </form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+    $(function(){
+        //设置checkbox颜色
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-green',
+            radioClass: 'iradio-green',
+            increaseArea: '20%'
+        });
+
+        //设置必填字段
+        // $("#form-member-add").validate({
+        //     rules:{
+        //         username:{
+        //             required:true,
+        //             minlength:2,
+        //             maxlength:16
+        //         },
+        //         sex:{
+        //             required:true,
+        //         },
+        //         state:{
+        //             required:true,
+        //         },
+        //         age:{
+        //             required:true,
+        //         },
+        //         bat:{
+        //             required:true,
+        //         },
+        //         play:{
+        //             required:true,
+        //         },
+        //         uploadfile:{
+        //             required:true,
+        //         },
+        //     },
+        //     onkeyup:false,
+        //     focusCleanup:true,
+        //     success:"valid",
+        //     submitHandler:function(form) {
+        //         $(form).ajaxSubmit(options);
+        //         //var index = parent.layer.getFrameIndex(window.name);
+        //         //parent.$('.btn-refresh').click();
+        //         //parent.layer.close(index);
+        //     }
+        //
+        // });
+
+    });
+
+</script>
+</body>
+</html>
